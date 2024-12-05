@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./server:/app/server
+
+  discord:
+    build:
+      context: ./discord
+      dockerfile: Dockerfile
+    volumes:
+      - ./discord:/app/discord
+    env_file:
+      - .docker.env
+    depends_on:
+      - server
